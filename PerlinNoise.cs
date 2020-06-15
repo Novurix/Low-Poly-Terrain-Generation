@@ -4,7 +4,7 @@ namespace DTerrainGeneration
     public class PerlinNoise
     {
         float[] heightMapIndexs;
-        int scale, heightIndex;
+        int scale;
 
         public PerlinNoise(int perlinScale)
         {
@@ -18,11 +18,11 @@ namespace DTerrainGeneration
 
                 Random random = new Random();
                 float newHeight = random.Next(1, 7);
-                heightMapIndexs[heightIndex] = newHeight;
+                heightMapIndexs[perlinIndex] = newHeight;
 
                 try {
-                    float heightMapBeforeZ = heightMapIndexs[heightIndex - (int)Math.Sqrt(heightMapIndexs.Length)];
-                    float heightMapBeforeX = heightMapIndexs[heightIndex - 1];
+                    float heightMapBeforeZ = heightMapIndexs[perlinIndex - (int)Math.Sqrt(heightMapIndexs.Length)];
+                    float heightMapBeforeX = heightMapIndexs[perlinIndex - 1];
 
                     float averageHeight = (heightMapBeforeX + heightMapBeforeZ) / 2;
 
@@ -36,10 +36,9 @@ namespace DTerrainGeneration
                     if (randomOperator == 1) newHeight = averageHeight + height/2;
                     else newHeight = averageHeight - height/3;
 
-                    heightMapIndexs[heightIndex] = newHeight;
+                    heightMapIndexs[perlinIndex] = newHeight;
 
                 }catch (Exception e){}
-                heightIndex++;
             }
             return heightMapIndexs;
         }
