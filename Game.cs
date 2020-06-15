@@ -8,7 +8,7 @@ namespace DTerrainGeneration
 {
     public class Game
     {
-        int perlinScale = 100, verticesPerPlain = 4, areaOfMap, verticesIndex, groupVertID = 0;
+        int perlinScale = 100, verticesPerPlain = 4, areaOfMap, verticesIndex, groupVertID = 0, grassTexture;
         Vec3D[] vertices;
         Tile[] tiles;
         TileVertices[] tileVertices;
@@ -33,6 +33,7 @@ namespace DTerrainGeneration
 
         void start() {
 
+            GL.Rotate(90, 0, 1, 0);
             GL.Translate(10, -20, -55);
 
             // Creates height map
@@ -75,7 +76,6 @@ namespace DTerrainGeneration
 
         private void render(object sender, EventArgs e) {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            GL.Rotate(1, 0, 1, 0);
 
             for (int tile = 0; tile < tiles.Length-1; tile++)
             {
@@ -101,6 +101,18 @@ namespace DTerrainGeneration
         private void load(object sender, EventArgs e) {
             GL.ClearColor(0, 0, 0, 0);
             GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Lighting);
+            GL.Enable(EnableCap.ColorMaterial);
+
+            float[] lightPos = { 20f, 20, 80f };
+            float[] lightDiffuse = { .1f, .1f, .1f };
+            float[] lightAmbient = { .3f, .5f, .6f };
+
+            GL.Light(LightName.Light0, LightParameter.Position, lightPos);
+            GL.Light(LightName.Light0, LightParameter.Diffuse, lightDiffuse);
+            GL.Light(LightName.Light0, LightParameter.Ambient, lightAmbient);
+
+            GL.Enable(EnableCap.Light0);
         }
     }
 }
