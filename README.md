@@ -1,2 +1,2 @@
 # Low Poly Terrain Generation
-simple terrain generation in OpenTK. Rendering may be different on windows and linux.
+Simple terrain generation in OpenTK (OpenGL but for C#). Rendering may be different on windows and linux.
